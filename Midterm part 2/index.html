@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Southpark Elementary - Library Users</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 42px;
+      margin-bottom: 5px;
+    }
+    h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #666;
+    }
+    /* Card container */
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    /* Individual card */
+    .card {
+      display: flex;
+      align-items: center;
+      border: 2px solid #000;
+      padding: 15px;
+      width: calc(30% - 20px); /* Adjust width */
+      min-width: 260px;
+      height: auto;
+      background: white;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .info {
+      text-align: left;
+      font-size: 16px;
+      flex-grow: 1;
+      padding-right: 15px;
+    }
+    .info p {
+      margin: 6px 0;
+    }
+    /* Square box for images */
+    .card img {
+      width: 75px;
+      height: 75px;
+      object-fit: cover;
+      border: 2px solid #000;
+      background: #fff;
+      display: block;
+    }
+    /* Responsive Design */
+    @media (max-width: 1200px) { /* 3 per row */
+      .card {
+        width: calc(33.33% - 20px);
+      }
+    }
+    @media (max-width: 900px) { /* 2 per row */
+      .card {
+        width: calc(50% - 20px);
+      }
+    }
+    @media (max-width: 600px) { /* 1 per row */
+      .card {
+        width: 100%;
+      }
+    }
+  </style>
+  <script>
+    async function displayCharacters() {
+      try {
+        const response = await fetch("ernesto_peñalosa.xml");
+        if (!response.ok) throw new Error("Failed to load XML");
+
+        const xmlText = await response.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(xmlText, "application/xml");
+
+        const characters = xml.getElementsByTagName("character");
+        const container = document.getElementById("card-container");
+
+        for (let i = 0; i < 10; i++) { // Ensures 10 records
+          const picture = characters[i].getElementsByTagName("picture")[0].textContent;
+          const name = characters[i].getElementsByTagName("name")[0].textContent;
+          const course = characters[i].getElementsByTagName("course")[0].textContent;
+          const yearSection = characters[i].getElementsByTagName("yearSection")[0].textContent;
+          const adviser = characters[i].getElementsByTagName("adviser")[0].textContent;
+          const schoolYear = characters[i].getElementsByTagName("schoolYear")[0].textContent;
+
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <div class="info">
+              <p><strong>Name:</strong> ${name}</p>
+              <p><strong>Course:</strong> ${course}</p>
+              <p><strong>Year Level / Section:</strong> ${yearSection}</p>
+              <p><strong>Adviser:</strong> ${adviser}</p>
+              <p><strong>School Year:</strong> ${schoolYear}</p>
+            </div>
+            <img src="${picture}" alt="User Photo">
+          `;
+          container.appendChild(card);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+  </script>
+</head>
+<body onload="displayCharacters()">
+  <h1>Southpark Elementary</h1>
+  <h2>Library Users</h2>
+  <div id="card-container" class="card-container"></div>
+</body>
+</html>
