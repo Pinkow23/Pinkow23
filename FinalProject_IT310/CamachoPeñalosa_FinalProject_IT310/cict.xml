@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Students>
+  <student>
+    <id>23</id>
+    <name>Ernesto B. Pe&#xF1;alosa III</name>
+    <course>BS Information Technology</course>
+  </student>
+  <student>
+    <id>28</id>
+    <name>Mark John M. Camacho</name>
+    <course>BS Information Technology</course>
+  </student>
+  <student>
+    <id>30</id>
+    <name>Christian Ivan G. Sumugoy</name>
+    <course>BS Fine Arts</course>
+  </student>
+  <student>
+    <id>69</id>
+    <name>Jaypee Hernandez</name>
+    <course>Bachelor of Performing Arts</course>
+  </student>
+</Students>
